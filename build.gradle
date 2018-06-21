@@ -32,5 +32,5 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	//compile('mysql:mysql-connector-java')
 	compile('org.postgresql:postgresql')
-	//providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+	//compile("org.springframework.boot:spring-boot-starter-tomcat")
 }
