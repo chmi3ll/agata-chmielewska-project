@@ -12,6 +12,6 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 public class TrelloAttachmentsByTypeDto {
-    @JsonProperty
+    @JsonProperty("trellos")
     private List<TrelloDto> trellos;
 }
