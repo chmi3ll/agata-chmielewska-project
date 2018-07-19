@@ -26,12 +26,11 @@ public class EmalScheduler {
             //(cron = "0 0 10 * * *")
     public void sendInformationEmail() {
         long size = taskRepository.count();
-        if (size > 1) {
-            simpleMailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT,
-                    "Currently in database you got: " + size + " tasks", "chmielewska.agata33@gmail.com"));
-        } else if (size == 1) {
-            simpleMailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT,
-                    "Currently in database you got: " + size + " task", "chmielewska.agata33@gmail.com"));
-        }
+        String text = "" + size + " tasks";
+        if (size == 1) { text = "1 task"; }
+        if (size > 1) { text = size + " tasks"; }
+        simpleMailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT,
+                "Currently in database you got: " + text, "chmielewska.agata33@gmail.com"));
+
     }
 }
