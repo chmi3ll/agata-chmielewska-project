@@ -14,7 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.internal.verification.VerificationModeFactory.atLeastOnce;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DbServiceTestSuite {
@@ -45,10 +48,16 @@ public class DbServiceTestSuite {
     @Test
     public void testGetTaskById() {
         Task task = new Task(1L, "sprzatanie", "mycie kafelków");
-        //Long id = 10L;
         when(dbService.getTaskById(task.getId())).thenReturn(Optional.ofNullable(task));
         Optional<Task> result = dbService.getTaskById(task.getId());
         Assert.assertTrue("optional żyje", result.isPresent());
+    }
+
+    @Test
+    public void testDeleteTaskById() {
+        Task task = new Task(1L, "sprzatanie", "mycie kafelków");
+        dbService.deleteTaskById(task.getId());
+        verify(taskRepository, atLeastOnce()).deleteById(anyLong());
     }
 
 }
