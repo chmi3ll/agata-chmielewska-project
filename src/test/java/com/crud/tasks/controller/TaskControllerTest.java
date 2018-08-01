@@ -42,10 +42,6 @@ public class TaskControllerTest {
     private DbService dbService;
 
 
-    //    @RequestMapping(method = RequestMethod.GET, value = "getTasks")
-//    public List<TaskDto> getTasks(){
-//        return taskMapper.mapToTaskDtoList(service.getAllTasks());
-//    }
     @Test
     public void shouldFetchEmptyTasks() throws Exception {
         //Given
@@ -80,10 +76,6 @@ public class TaskControllerTest {
 
     }
 
-//    @RequestMapping(method = RequestMethod.GET, value = "getTask")
-//    public TaskDto getTask(@RequestParam Long taskId) throws TaskNotFoundException {
-//        return taskMapper.mapToTaskDto(service.getTaskById(taskId).orElseThrow(TaskNotFoundException::new));
-//    }
     @Test
     public void shouldFetchTask() throws Exception {
         //Given
@@ -111,11 +103,6 @@ public class TaskControllerTest {
                 .andExpect(status().isOk());
         verify(dbService, times(1)).deleteTaskById(task.getId());
     }
-
-//    @RequestMapping(method = RequestMethod.PUT, value = "updateTask")
-//    public TaskDto updateTask(@RequestBody TaskDto taskDto) {
-//        return taskMapper.mapToTaskDto(service.saveTask(taskMapper.mapToTask(taskDto)));
-//    }
 
     @Test
     public void shouldUpdateTask() throws Exception {
