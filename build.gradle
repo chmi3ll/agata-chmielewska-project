@@ -41,6 +41,6 @@ dependencies {
 	//do mapowania obiektu na JSON
 	compile('com.google.code.gson:gson:2.8.2')
 	//Actuator
-	compile('org.springframework.boot:spring-boot-starter-test')
+	compile('org.springframework.boot:spring-boot-starter-actuator')
 
 }
