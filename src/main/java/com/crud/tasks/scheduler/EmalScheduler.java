@@ -28,7 +28,7 @@ public class EmalScheduler {
         String text = "" + size + " tasks";
         if (size == 1) { text = "1 task"; }
         simpleMailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT,
-                "Currently in database you got: " + text, "chmielewska.agata33@gmail.com"));
+                "Currently in database you got: " + text));
 
     }
 }
