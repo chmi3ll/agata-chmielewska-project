@@ -1,6 +1,7 @@
 package com.crud.tasks.service;
 
 import com.crud.tasks.domain.Mail;
+import com.crud.tasks.repository.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,16 @@ public class SimpleMailService {
     @Autowired
     private MailCreatorService mailCreatorService;
 
+    @Autowired
+    TaskRepository taskRepository;
+
     public void send(final Mail mail) {
         LOGGER.info("Starting email preparation...");
         try {
 //            SimpleMailMessage mailMessage = createMailMessage(mail);
 //            javaMailSender.send(mailMessage);
-            javaMailSender.send(createMimeMessage(mail));
+//            javaMailSender.send(createMimeMessage(mail));
+            javaMailSender.send(createMimeMessageFromDb(mail));
             LOGGER.info("Email has been sent.");
         } catch (MailException e) {
             LOGGER.error("Failed to process email sending: ",
@@ -42,6 +47,17 @@ public class SimpleMailService {
             messageHelper.setTo(mail.getMailTo());
             messageHelper.setSubject(mail.getSubject());
             messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
+        };
+    }
+
+    private MimeMessagePreparator createMimeMessageFromDb(final Mail mail) {
+        long size = taskRepository.count();
+
+        return mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setTo(mail.getMailTo());
+            messageHelper.setSubject(mail.getSubject());
+            messageHelper.setText(mailCreatorService.getCountTasksEmail(mail.getMessage()), true);
         };
     }
 
